@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+
+  "name": "TracksFlow Downloader",
+  "description": "__MSG_extDesc__",
+  "version": "1.0",
+  "default_locale": "ru",
+
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+
+  "content_scripts": [
+	{
+	  "js": ["js/tfd-global.js"],
+	  "matches": ["*://tracksflow.com/*"],
+      "run_at": "document_end"
+    }
+  ],
+
+  "web_accessible_resources": ["js/tfd-inject.js", "css/tfd-inject.css"]
+}
