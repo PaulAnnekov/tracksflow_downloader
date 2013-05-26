@@ -5,17 +5,13 @@ $(document).ready(function() {
    * Creates TracksFlow Downloader class instance.
    *
    * @constructor
-   * @param {Object} [options] Associative array of options.
-   * @param {Object} [options.i18n] Associative array of localized strings.
+   * @param {Object} options Associative array of options.
+   * @param {Object} options.i18n Associative array of localized strings.
    */
   function TFD(options) {
     this.i18n = options.i18n;
 
-    try {
-      this.init();
-    } catch (e) {
-
-    }
+    this.init();
   }
 
   /**
@@ -76,8 +72,7 @@ $(document).ready(function() {
           var track = t.getTrackFromDOM($(this).closest('.track-line'));
           window.player.getLink(track, {
             success: function(trackInfo/*model*/) {
-              //console.log(model);
-              /*var trackInfo = model.attributes*/;
+              /*var trackInfo = model.attributes;*/
 
               var elem = $('<a>', {
                 href: trackInfo.link,
@@ -107,10 +102,13 @@ $(document).ready(function() {
    */
   TFD.prototype.getTrackFromDOM = function($trackLine) {
     //return window.player.get('collection').models[$trackLine.index()];
+    var time = $('#time', $trackLine).text();
+    time = (time.length > 0) ? this.timeCodeToSeconds(time) : null;
+
     return {
       artistName: $.trim($('.artistName a', $trackLine).text()),
       trackName: $.trim($('.trackName a name', $trackLine).text()),
-      durationSec: t.timeCodeToSeconds($('#time', $trackLine).text()),
+      durationSec: time,
       getUrl: function() {return false;},
       get: function(key) {return this[key];},
       set: function(key, value) {this[key] = value;}

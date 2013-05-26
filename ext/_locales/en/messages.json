@@ -1,11 +1,11 @@
 {
   "extDesc": {
     "message": "Adds possibility to download current track from TracksFlow.",
-    "description": "Located on extensions page"
+    "description": "Text on extensions page"
   },
   "downloadButtonTitle": {
     "message": "Download track",
-    "description": "Located in 'title' attribute of download button"
+    "description": "Text in 'title' attribute of download button"
   },
   "playlistPlayWarn": {
     "message": "You need to start playing any track from this list to begin download. This will be fixed in next versions",
