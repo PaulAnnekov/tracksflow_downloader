@@ -154,10 +154,17 @@ $(document).ready(function() {
    * @returns {string}
    */
   TFD.prototype.getTrackName = function(trackInfo) {
-    var pos = trackInfo.link.lastIndexOf('.');
+    // <a> tag parses url and divides it to object variables.
+    var a = document.createElement('a');
+    a.href = trackInfo.link;
+
+    // Search in url path (omitting domain and query).
+    var pos = a.pathname.lastIndexOf('.');
     var ext = 'mp3';
     if (pos >= 0) {
-      ext = trackInfo.link.substr(pos + 1);
+      var tmpExt = a.pathname.substr(pos + 1);
+      if (tmpExt.length <= 4)
+        ext = tmpExt;
     }
 
     return trackInfo.artistName + ' - ' + trackInfo.trackName + '.' + ext;
