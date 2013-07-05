@@ -64,16 +64,9 @@ $(document).ready(function() {
         ).insertAfter($('.social-icon', $container));
 
         $icon.click(function() {
-          /*if (!window.player.changed.hasOwnProperty('nowPlayingTarget')) {
-            t.showWarn(t.i18n.playlistPlayWarn);
-            return;
-          }*/
-
           var track = t.getTrackFromDOM($(this).closest('.track-line'));
           window.player.getLink(track, {
-            success: function(trackInfo/*model*/) {
-              /*var trackInfo = model.attributes;*/
-
+            success: function(trackInfo) {
               var elem = $('<a>', {
                 href: trackInfo.link,
                 download: t.getTrackName(trackInfo),
@@ -84,9 +77,8 @@ $(document).ready(function() {
               elem.get(0).click();
               elem.remove();
             },
-            error: function(error) {
-              console.log(error);
-              // TODO: Handle error. https://trello.com/c/asD0kEDM
+            error: function() {
+                t.showWarn(t.i18n.noLinkWarn);
             }
           });
         });
@@ -122,7 +114,7 @@ $(document).ready(function() {
    * @param {String} message Notification message.
    */
   TFD.prototype.showWarn = function(message) {
-    window.utils.msg.notify(message);
+    window.utils.msg.warn(message);
   };
 
   /**

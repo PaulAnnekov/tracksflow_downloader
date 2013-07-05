@@ -1,7 +1,8 @@
 var injectedData = {
   i18n: {
     downloadButtonTitle: chrome.i18n.getMessage('downloadButtonTitle'),
-    playlistPlayWarn: chrome.i18n.getMessage('playlistPlayWarn')
+    playlistPlayWarn: chrome.i18n.getMessage('playlistPlayWarn'),
+    noLinkWarn: chrome.i18n.getMessage('noLinkWarn')
   }
 };
 
@@ -24,6 +25,3 @@ injectStyle.rel = 'stylesheet';
 injectStyle.href = chrome.extension.getURL("css/tfd-inject.css");
 injectStyle.media = 'screen';
 doc.appendChild(injectStyle);
-
-
-
