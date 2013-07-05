@@ -20,5 +20,14 @@
     }
   ],
 
+  "background": {
+    "scripts": ["js/zip.js", "js/zip-fs.js", "js/zip-ext.js", "js/background.js"]
+  },
+
+  "permissions": [
+    "http://*/",
+    "https://*/"
+  ],
+
   "web_accessible_resources": ["js/tfd-inject.js", "css/tfd-inject.css"]
 }
