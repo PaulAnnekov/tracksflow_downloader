@@ -1,6 +1,6 @@
 {
   "extDesc": {
-    "message": "Adds possibility to download current track from TracksFlow.",
+    "message": "Adds possibility to download tracks from TracksFlow.",
     "description": "Text on extensions page"
   },
   "downloadButtonTitle": {
