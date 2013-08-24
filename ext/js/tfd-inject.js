@@ -65,21 +65,22 @@ $(document).ready(function() {
 
         $icon.click(function() {
           var track = t.getTrackFromDOM($(this).closest('.track-line'));
-          window.player.getLink(track, {
-            success: function(trackInfo) {
-              var elem = $('<a>', {
-                href: trackInfo.link,
-                download: t.getTrackName(trackInfo),
-                target: '_blank',
-                id: 'tfd-download-link'
-              });
-
-              elem.get(0).click();
-              elem.remove();
-            },
-            error: function() {
-                t.showWarn(t.i18n.noLinkWarn);
+          window.player.loadFromNode(track, function(error, trackSource) {
+            if (!_.isEmpty(error) || !trackSource.url) {
+              t.showWarn(t.i18n.noLinkWarn);
+              return;
             }
+
+            track.url = trackSource.url;
+            var elem = $('<a>', {
+              href: track.url,
+              download: t.getTrackName(track),
+              target: '_blank',
+              id: 'tfd-download-link'
+            });
+
+            elem.get(0).click();
+            elem.remove();
           });
         });
       }
@@ -101,9 +102,7 @@ $(document).ready(function() {
       artistName: $.trim($('.artistName a', $trackLine).text()),
       trackName: $.trim($('.trackName a name', $trackLine).text()),
       durationSec: time,
-      getUrl: function() {return false;},
-      get: function(key) {return this[key];},
-      set: function(key, value) {this[key] = value;}
+      get: function(key) {return this[key];}
     };
   };
 
@@ -139,16 +138,16 @@ $(document).ready(function() {
    * Returns nice track name in the following format: "Artist - Song.extension".
    *
    * @private
-   * @param {Object} trackInfo Track info.
-   * @param {String} trackInfo.link Download link.
-   * @param {String} trackInfo.artistName Artist.
-   * @param {String} trackInfo.trackName Track name.
+   * @param {Object} track Track info.
+   * @param {String} track.url Download url.
+   * @param {String} track.artistName Artist.
+   * @param {String} track.trackName Track name.
    * @returns {string}
    */
-  TFD.prototype.getTrackName = function(trackInfo) {
+  TFD.prototype.getTrackName = function(track) {
     // <a> tag parses url and divides it to object variables.
     var a = document.createElement('a');
-    a.href = trackInfo.link;
+    a.href = track.url;
 
     // Search in url path (omitting domain and query).
     var pos = a.pathname.lastIndexOf('.');
@@ -159,7 +158,7 @@ $(document).ready(function() {
         ext = tmpExt;
     }
 
-    return trackInfo.artistName + ' - ' + trackInfo.trackName + '.' + ext;
+    return track.artistName + ' - ' + track.trackName + '.' + ext;
   };
 
   /**

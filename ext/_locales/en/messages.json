@@ -12,7 +12,7 @@
     "description": "Shown at the top of the window in case you can't download track"
   },
   "noLinkWarn": {
-    "message": "Can't get track download link. Track is played from YouTube or other service that doesn't provide link",
+    "message": "Can't get track download link. Track is played from YouTube, Deezer or other service that doesn't provide link",
     "description": "Shown at the top of the window in case of service doesn't provide download link"
   }
 }
